@@ -6,13 +6,13 @@ public class depositToAccount {
     public static void main(String[] args) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/bams", "root", "Rado@2019");
              Scanner scanner = new Scanner(System.in)) {
-           withdraw(connection, scanner);
+           deposit(connection, scanner);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    protected static void withdraw(Connection connection, Scanner scan) {
+    protected static void deposit(Connection connection, Scanner scan) {
         try {
         	
             System.out.print("Enter Deposit Account Number: ");
