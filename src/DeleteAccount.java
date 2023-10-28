@@ -6,15 +6,6 @@ import java.sql.*;
 
 
 public class DeleteAccount {
-	
-	 public static void main(String[] args) {
-	        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/bams", "root", "Rado@2019");
-	             Scanner scanner = new Scanner(System.in)) {
-	            deleteInfo(connection, scanner);
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
 	 protected static void deleteInfo(Connection connection, Scanner scanner) throws SQLException {
 	      System.out.print("Enter the account number you want to delete: ");
 	      int accountNumber = scanner.nextInt();

@@ -17,6 +17,8 @@ public class Main {
 		        System.out.println("1. Accounts Information");
 		        System.out.println("2. Deposit");
 		        System.out.println("3. Withdraw");
+		        System.out.println("4. Transactions");
+			       
 		        System.out.println("0. Exit");
 		        System.out.println("============ \n");
 		        
@@ -34,6 +36,9 @@ public class Main {
 		        case 3:
 		        	withdrawFromAccount.withdraw(connection, scanner);
 		          break;
+		        case 4:
+		        	checkUserTransaction.checkTransaction(connection, scanner);
+		        	break;
 		        case 0:
 		          scanner.close();
 		          System.exit(0);
