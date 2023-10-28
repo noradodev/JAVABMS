@@ -14,32 +14,34 @@ public class checkUserTransaction {
             checkStatement.setInt(1, accountNumber);
             ResultSet resultSet = checkStatement.executeQuery();
             //your transaction table
-if(resultSet.next()) {
-	 String accNumber = resultSet.getString("account_number");
-    System.out.println("------------------------------------------------");
-    System.out.println(" Transactions Detail for User Accounts Number: " + accNumber);
-    System.out.println("------------------------------------------------");
-    
-    
-    boolean hasTransactions = false;
-    while (resultSet.next()) {
-        int accTransactionId = resultSet.getInt("transaction_id");
-       
-        double accTransactionAmount = resultSet.getDouble("amount");
-        String transactionType = resultSet.getString("transaction_type");
-        System.out.println("------------------------------------------------");
-        System.out.println("Transaction ID : " + accTransactionId);
-        System.out.println("Transaction Type : " + transactionType);
-        System.out.println("------------------------------------------------");
-        System.out.println("Transaction Amounts: $" + accTransactionAmount);
-        System.out.println("------------------------------------------------");
-        System.out.println("");
-        
-        // Set the hasTransactions flag to true
-        hasTransactions = true;
-    }
+            
+            boolean hasTransactions = false;
+            int count = 0;
+            if(!hasTransactions) {
+                System.out.println("------------------------------------------------");
+                System.out.println("Searching Transactions Detail for User Accounts Number: " + accountNumber);
+                System.out.println("------------------------------------------------");
+            }else {
+            	
+            }
+            while (resultSet.next()) {
+                int accTransactionId = resultSet.getInt("transaction_id");
+                String accNumber = resultSet.getString("account_number");
+                double accTransactionAmount = resultSet.getDouble("amount");
+                String transactionType = resultSet.getString("transaction_type");
+                System.out.println("");
+                System.out.println("Transaction ID : " + accTransactionId);
+                System.out.println("Transaction Type : " + transactionType);
+                System.out.println("------------------------------------------------");
+                System.out.println("Transaction Amounts: $" + accTransactionAmount);
+                System.out.println("------------------------------------------------");
+                System.out.println("");
+                
+                // Set the hasTransactions flag to true
+                hasTransactions = true;
+            }
 
-}else{
+            if (!hasTransactions) {
                 System.out.println("------------------------------------------------");
                 System.out.println("No transactions found for the specified account number.");
                 System.out.println("------------------------------------------------");
