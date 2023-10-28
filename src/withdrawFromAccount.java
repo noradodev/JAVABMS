@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class withdrawFromAccount {
@@ -16,7 +17,7 @@ public class withdrawFromAccount {
         	
             System.out.print("Enter Deposit Account Number: ");
             int accountNumber = scan.nextInt();
-
+          
          
 
             // Check if the account exists
@@ -36,6 +37,7 @@ public class withdrawFromAccount {
 
                     // Update the balance
                     String updateSql = "UPDATE accounts SET balance = ? WHERE account_number = ?";
+                    //create withraw amount
                     try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
                     	if(withrawAmount<=currentBalance) {
                     		updateStatement.setDouble(1, currentBalance - withrawAmount);
@@ -48,8 +50,33 @@ public class withdrawFromAccount {
                         int rowsUpdated = updateStatement.executeUpdate();
                         if(withrawAmount<=currentBalance) {
                         	if (rowsUpdated > 0) {
+                        		
+                        		  String transactionType = "Withraw";
+                        		  LocalDateTime create_date = LocalDateTime.now();
+                        		    int transactionID = RandomTransactionNum();
+                        		   Timestamp transaction_date = Timestamp.valueOf(create_date);
+                        		   
+                        		   
+                                String insertSqlAmount = "INSERT transactions (transaction_id, account_number, transaction_type, amount, transaction_date) VALUES (?,?,?,?,?)";
+                                try(PreparedStatement insertSqlAmountWithraw = connection.prepareStatement(insertSqlAmount)) {
+                                	insertSqlAmountWithraw.setInt(1, transactionID);
+                                	insertSqlAmountWithraw.setInt(2, accountNumber);
+                                	insertSqlAmountWithraw.setString(3, transactionType);
+                                	insertSqlAmountWithraw.setDouble(4, withrawAmount);
+                                	insertSqlAmountWithraw.setTimestamp(5, transaction_date);
+                                	int rowsinset = insertSqlAmountWithraw.executeUpdate();
+                                	
+                          	      if (rowsinset > 0) {
+                          	        System.out.println("added new transaction to table");
+                          	      } else{
+                          	        System.out.println("Failed");
+                          	      }
                                 
-                            	System.out.println("withrawn successful.");
+								} catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+                            	System.out.println("Withraw successful.");
                             
                         	} else {
                         		System.out.println("Deposit failed. Please try again.");
@@ -69,4 +96,14 @@ public class withdrawFromAccount {
             e.printStackTrace();
         }
     }
+    
+    private static int RandomTransactionNum() {
+		 // create Random object
+       Random random = new Random();
+       // generate random number from 0 to 3
+       int number = random.nextInt(99999)+1000000;
+		return number;
+		
+		
+	}
 }
