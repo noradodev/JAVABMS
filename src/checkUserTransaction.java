@@ -6,7 +6,7 @@ public class checkUserTransaction {
         System.out.print("-----------------");
 		System.out.print("Transaction Page");
         System.out.println("-----------------");
-        System.out.print("Enter Users ID: ");
+        System.out.print("Enter Users Account Number: ");
 		int accountNumber =scanner.nextInt();
 		//select from table
 		String sql = "SELECT * FROM transactions WHERE account_number = ?";	
@@ -14,35 +14,37 @@ public class checkUserTransaction {
             checkStatement.setInt(1, accountNumber);
             ResultSet resultSet = checkStatement.executeQuery();
             //your transaction table
-            if (resultSet.next()) {
-            	//modify this for information from transaction table
-            	int accTransactionId = resultSet.getInt("transaction_id");
-            	String accNumber= resultSet.getString("account_number");
-            	double accTransactionAmount= resultSet.getDouble("amount");
-            	String transactionType = resultSet.getString("transaction_type");
-            	System.out.println("");
-            	System.out.println("");
-            	System.out.println("");
-            	System.out.println("");
+if(resultSet.next()) {
+	 String accNumber = resultSet.getString("account_number");
+    System.out.println("------------------------------------------------");
+    System.out.println(" Transactions Detail for User Accounts Number: " + accNumber);
+    System.out.println("------------------------------------------------");
+    
+    
+    boolean hasTransactions = false;
+    while (resultSet.next()) {
+        int accTransactionId = resultSet.getInt("transaction_id");
+       
+        double accTransactionAmount = resultSet.getDouble("amount");
+        String transactionType = resultSet.getString("transaction_type");
+        System.out.println("------------------------------------------------");
+        System.out.println("Transaction ID : " + accTransactionId);
+        System.out.println("Transaction Type : " + transactionType);
+        System.out.println("------------------------------------------------");
+        System.out.println("Transaction Amounts: $" + accTransactionAmount);
+        System.out.println("------------------------------------------------");
+        System.out.println("");
+        
+        // Set the hasTransactions flag to true
+        hasTransactions = true;
+    }
+
+}else{
                 System.out.println("------------------------------------------------");
-                System.out.println("Transaction Detailed for User ID: "+ accNumber);
-                System.out.println("------------------------------------------------");
-                System.out.println("Transaction Id : "+ accTransactionId);
-                System.out.println("Transaction Type : "+ transactionType);
-                System.out.println("------------------------------------------------");
-                System.out.println("Transaction Amounts: $"+ accTransactionAmount);
-                System.out.println("------------------------------------------------");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-         
-               
-            } else {
-            	System.out.println("------------------------------------------------");
-                System.out.println("No account with the specified ID found.");
+                System.out.println("No transactions found for the specified account number.");
                 System.out.println("------------------------------------------------");
             }
+
         
     } catch (SQLException e) {
         e.printStackTrace();
