@@ -8,11 +8,12 @@ public class UpdateAccounts {
         int accountNumber = scanner.nextInt();
 
         System.out.print("Enter new account holder's name: ");
-        String newName = scanner.next();
+        String newfName = scanner.next();
+        String newlName = scanner.next();
 
         String sql = "UPDATE accounts SET account_holder = ? WHERE account_number = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, newName);
+            preparedStatement.setString(1, newfName+" "+ newlName);
             preparedStatement.setInt(2, accountNumber);
             int rowsUpdated = preparedStatement.executeUpdate();
             
