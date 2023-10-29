@@ -2,14 +2,6 @@ import java.util.*;
 import java.sql.*;
 
 public class UpdateAccounts {
-    public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/bams", "root", "Rado@2019");
-             Scanner scanner = new Scanner(System.in)) {
-            updateInfo(connection, scanner);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     static void updateInfo(Connection connection, Scanner scanner) {
         System.out.print("Enter the account ID you want to edit: ");

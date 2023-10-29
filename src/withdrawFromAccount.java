@@ -3,15 +3,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class withdrawFromAccount {
-    public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/bams", "root", "Rado@2019");
-             Scanner scanner = new Scanner(System.in)) {
-           withdraw(connection, scanner);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     protected static void withdraw(Connection connection, Scanner scan) {
         try {
         	
