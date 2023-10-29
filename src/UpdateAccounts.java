@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class UpdateAccounts {
 
-    static void updateInfo(Connection connection, Scanner scanner) {
+   protected static void updateInfo(Connection connection, Scanner scanner) {
         System.out.print("Enter the account ID you want to edit: ");
         int accountNumber = scanner.nextInt();
 
